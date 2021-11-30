@@ -1,0 +1,21 @@
+{
+    "name": "duitkupg/duitku-php",
+    "description": "Duitku PHP",
+    "homepage": "https://duitku.com",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Duitku\\": "Duitku/"
+        }
+    }
+}
