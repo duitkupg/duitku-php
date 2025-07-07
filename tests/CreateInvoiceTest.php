@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once dirname(__FILE__) . '/../Duitku.php';
 
-class TransactionStatusTest extends TestCase
+class CreateInvoiceTest extends TestCase
 {
     public function testGetJson()
     {
