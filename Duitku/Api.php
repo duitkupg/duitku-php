@@ -232,7 +232,7 @@ class Api extends Request
      * }
      * 
      * @param \Duitku\Config $config
-     * @return json response
+     * @return string JSON-encoded callback data
      * @throws Exception
      */
     public static function callback($config)
