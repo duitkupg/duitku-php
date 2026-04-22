@@ -106,7 +106,7 @@ class Pop extends Request
 		}
 
 		$timestamp = round(microtime(true) * 1000);
-		$signature = hash('sha256', $config->getMerchantCode() . $timestamp . $config->getApiKey());
+		$signature = hash_hmac('sha256', $config->getMerchantCode() . $timestamp , $config->getApiKey());
 
 		$params = json_encode($payload);
 		$header = array(
@@ -154,7 +154,7 @@ class Pop extends Request
 	 */
 	public static function transactionStatus($merchantOrderId, $config)
 	{
-		$signature = md5($config->getMerchantCode() . $merchantOrderId . $config->getApiKey());
+		$signature = hash_hmac('sha256' , $config->getMerchantCode() . $merchantOrderId , $config->getApiKey());
 
 		$payload = array(
 			'merchantCode'		=> $config->getMerchantCode(),
@@ -194,7 +194,7 @@ class Pop extends Request
 	public static function getPaymentMethod($paymentAmount, $config)
 	{
 		$datetime = date('Y-m-d H:i:s');
-		$signature = hash("sha256", $config->getMerchantCode() . $paymentAmount . $datetime . $config->getApiKey());
+		$signature = hash_hmac("sha256", $config->getMerchantCode() . $paymentAmount . $datetime , $config->getApiKey());
 
 		$payload = array(
 			'merchantCode'        => $config->getMerchantCode(),
@@ -269,7 +269,7 @@ class Pop extends Request
 	private static function isSignatureValid($notification, $config)
 	{
 		$signature = $notification['signature'];
-		$signGenerate = md5($notification['merchantCode'] . $notification['amount'] . $notification['merchantOrderId'] . $config->getApiKey());
+		$signGenerate = hash_hmac('sha256' , $notification['merchantCode'] . $notification['amount'] . $notification['merchantOrderId'] , $config->getApiKey());
 		return $signature == $signGenerate;
 	}
 }
