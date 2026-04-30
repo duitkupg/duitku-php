@@ -109,7 +109,7 @@ class Api extends Request
 
         $timestamp = round(microtime(true) * 1000);
         $payload["merchantCode"]    = $config->getMerchantCode();
-        $payload["signature"]       = md5($config->getMerchantCode() . $payload["merchantOrderId"] . $payload["paymentAmount"] . $config->getApiKey());
+        $payload["signature"]       = hash_hmac('sha256' , $config->getMerchantCode() . $payload["merchantOrderId"] . $payload["paymentAmount"] , $config->getApiKey());
 
         $params         = json_encode($payload);
         $setLogFunction = __CLASS__ . "->" . __FUNCTION__;
@@ -151,7 +151,7 @@ class Api extends Request
      */
     public static function transactionStatus($merchantOrderId, $config)
     {
-        $signature = md5($config->getMerchantCode() . $merchantOrderId . $config->getApiKey());
+        $signature = hash_hmac('sha256' , $config->getMerchantCode() . $merchantOrderId , $config->getApiKey());
 
         $payload = array(
             'merchantCode'        => $config->getMerchantCode(),
@@ -191,7 +191,7 @@ class Api extends Request
     public static function getPaymentMethod($paymentAmount, $config)
     {
         $datetime = date('Y-m-d H:i:s');
-        $signature = hash("sha256", $config->getMerchantCode() . $paymentAmount . $datetime . $config->getApiKey());
+        $signature = hash_hmac("sha256", $config->getMerchantCode() . $paymentAmount . $datetime , $config->getApiKey());
 
         $payload = array(
             'merchantCode'        => $config->getMerchantCode(),
@@ -264,7 +264,7 @@ class Api extends Request
     private static function isSignatureValid($notification, $config)
     {
         $signature = $notification['signature'];
-        $signGenerate = md5($notification['merchantCode'] . $notification['amount'] . $notification['merchantOrderId'] . $config->getApiKey());
+        $signGenerate = hash_hmac('sha256' , $notification['merchantCode'] . $notification['amount'] . $notification['merchantOrderId'] , $config->getApiKey());
         return $signature == $signGenerate;
     }
 }
