@@ -1,11 +1,11 @@
 {
     "merchantOrderId": "12345",
     "resultCode": "00",
-    "merchantCode": "D0001",
+    "merchantCode": "DXXXX",
     "amount": 10000,
     "productDetail": "",
     "paymentCode": "",
-    "reference": "D00015HL5BJKRM27MCUS",
+    "reference": "DXXXX5HL5BJKRM27MCUS",
     "additionalParam": "",
     "signature": "4104f20a70c933113c66c004fe25a9f1"
 }
